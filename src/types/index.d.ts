@@ -1,7 +1,8 @@
 export interface MoviesRawData {
   Search:       MovieSearchRawData[];
   totalResults: string;
-  Response:     string;
+  Response:     ResponseValue;
+  Error:     string | undefined;
 }
 
 export interface MovieSearchRawData {
@@ -23,4 +24,10 @@ export interface MovieSearchData {
 
 export enum Type {
   Movie = "movie",
+}
+
+
+export enum ResponseValue {
+  False = "False",
+  True = "True",
 }
