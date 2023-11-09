@@ -1,0 +1,28 @@
+.fmHeaderBar {
+    width: 100%;
+    box-shadow: 0px 14px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.fmHeaderBarNav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fmHeaderBarNavLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.fmHeaderBarNavLinkBlock {
+    white-space: nowrap;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}

@@ -17,7 +17,6 @@ export interface MovieSearchData {
   id: string;
   title:  string;
   year:   string;
-  imdbID: string;
   type:   Type;
   poster: string;
 }

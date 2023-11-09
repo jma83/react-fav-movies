@@ -1,0 +1,16 @@
+.fmAppMain {
+  width: 100%;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 25rem), 1fr));
+  gap: 20px;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .fmAppMain {
+    display: grid;
+    grid-template-columns: minmax(200px, 400px) 1fr;
+    gap: 50px;
+  }
+}

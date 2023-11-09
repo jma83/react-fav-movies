@@ -9,14 +9,14 @@ export default function useMovies() {
   const [movies, setMovies] = useState([] as MovieSearchData[]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentSearch, setCurrentSearch] = useState("");
+  // const [likedMovies, setLikedMovies] = useState([] as string[]);
 
 
   const handleParseMovie = (movieSearch: MovieSearchRawData) => {
     const { Title, imdbID, Poster, Year, Type } = movieSearch;
     return {
-      id: crypto.randomUUID(),
+      id: imdbID,
       title: Title,
-      imdbID: imdbID,
       poster: Poster,
       year: Year,
       type: Type,
@@ -25,7 +25,7 @@ export default function useMovies() {
 
   const fetchMoviesFromSource = async (search: string) => {
     const response = await fetch(
-      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`,
+      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}&type=movie`,
     );
     const movies: MoviesRawData = await response.json();
     if (movies.Response === 'False') {

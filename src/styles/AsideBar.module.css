@@ -1,0 +1,26 @@
+.fmAppMainAside {
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 15px 0px 40px 0px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: #202b38;
+}
+
+.fmAppMainAsideInput {
+    width: 90%;
+}
+
+
+.fmAppMainAsideError {
+    color: crimson;
+}
+
+@media (min-width: 768px) {
+    .fmAppMainAside {
+        top: 1rem;
+        height: 10rem;
+    }
+}

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import styles from "../styles/AsideBar.module.css"
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const AsideBar = ({ searchMovies }: { searchMovies: Function }) => {
@@ -74,18 +75,19 @@ export const AsideBar = ({ searchMovies }: { searchMovies: Function }) => {
 
 
   return (
-    <aside>
+    <aside className={styles.fmAppMainAside}>
       <form onSubmit={handleOnSubmit}>
         <label htmlFor="search">Buscar por título de pelicula</label>
         <input
           type="text"
           name="search"
           placeholder="El Padrino, el Club de la Lucha..."
+          className={styles.fmAppMainAsideInput}
           onInput={handleInputDebounced}
         />
         <button type="submit">Buscar</button>
       </form>
-      {error && isFirstInput ? <p className="error">{error}</p> : <></>}
+      {error && isFirstInput ? <p className={styles.fmAppMainAsideError}>{error}</p> : <></>}
     </aside>
   );
 };
