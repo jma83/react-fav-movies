@@ -6,13 +6,13 @@ import useMovies from './hooks/useMovies.ts';
 
 
 function App() {
-  const { movies, handleGetMovies, isLoading, currentSearch } = useMovies();
+  const { movies, handleGetMovies, isLoading, currentSearch, handleLikeMovie } = useMovies();
   return (
     <>
       <HeaderBar />
       <main className={style.fmAppMain}>
         <AsideBar searchMovies={handleGetMovies} />
-        <FilmsSection movies={movies} isLoading={isLoading} currentSearch={currentSearch} />
+        <FilmsSection movies={movies} isLoading={isLoading} currentSearch={currentSearch} handleLikeMovie={handleLikeMovie} />
       </main>
     </>
   );
