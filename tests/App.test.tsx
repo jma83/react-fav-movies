@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest';
 import App from '../src/App';
 import { cleanup, render, RenderResult, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -40,6 +40,11 @@ describe('App root component', () => {
     listNodes = list.childNodes;
     expect(listNodes.length).toBe(0);
   });
+
+  afterAll(() => {
+    vi.resetAllMocks();
+    cleanup();
+  })
 
   test('Should search films', async () => {
     const user = userEvent.setup();
