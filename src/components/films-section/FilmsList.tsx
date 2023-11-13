@@ -1,7 +1,7 @@
-import { MovieSearchData } from '../types';
-import styles from '../styles/FilmsList.module.css';
-import { FavMovieIcon } from './FavMovieIcon.tsx';
-import { FavMovieFilledIcon } from './FavMovieFilledIcon.tsx';
+import { MovieSearchData } from '../../types';
+import styles from '../../styles/FilmsList.module.css';
+import { FavMovieIcon } from './icons/FavMovieIcon.tsx';
+import { FavMovieFilledIcon } from './icons/FavMovieFilledIcon.tsx';
 
 export const FilmsList = ({
   isLoading,

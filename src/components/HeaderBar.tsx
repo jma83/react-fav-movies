@@ -1,4 +1,4 @@
-import { HeaderLogo } from './HeaderLogo.tsx';
+import { HeaderLogo } from './header-bar/HeaderLogo.tsx';
 import styles from "../styles/HeaderBar.module.css"
 
 export const HeaderBar = () => {

@@ -36,12 +36,9 @@ ul {
 }
 
 .fmListMoviesItemCoverContent {
-    width: 6rem;
-    height: 6rem;
     background-color: transparent;
     fill: white;
     color: white;
-    border-radius: 50%;
 }
 
 .fmListMoviesItemCoverContent {
@@ -49,8 +46,8 @@ ul {
 }
 
 .fmListMoviesItemCoverContentIcon {
-    width: 100%;
-    height: 100%;
+    width: 4rem;
+    height: 4rem;
 }
 
 .fmListMoviesItemCoverContent:hover {

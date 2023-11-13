@@ -76,7 +76,7 @@ export const AsideBar = ({ searchMovies }: { searchMovies: Function }) => {
 
   return (
     <aside className={styles.fmAppMainAside}>
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleOnSubmit} aria-label="Búsqueda de peliculas">
         <label htmlFor="search">Buscar por título de pelicula</label>
         <input
           type="text"

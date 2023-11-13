@@ -1,9 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import moviesData from '../data/movies.json';
 import { MovieSearchData, MovieSearchRawData, MoviesRawData } from '../types';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
-const isFake = false;
 
 export default function useMovies() {
   const [movies, setMovies] = useState([] as MovieSearchData[]);
@@ -26,9 +24,9 @@ export default function useMovies() {
     let newlikedMovies;
 
     if (movie.isLiked) {
-      newlikedMovies = likedMovies.filter((m) => movie.id !== m.id)
+      newlikedMovies = likedMovies.filter(m => movie.id !== m.id);
     } else {
-      newlikedMovies = [...likedMovies, movie]
+      newlikedMovies = [...likedMovies, movie];
     }
     setLikedMovies(newlikedMovies);
   };
@@ -52,10 +50,10 @@ export default function useMovies() {
       `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}&type=movie`,
     );
     const movies: MoviesRawData = await response.json();
+    console.log("movies", movies.Search.length);
     if (movies.Response === 'False') {
       throw new Error(movies.Error!);
     }
-    console.log('movies', movies);
     return movies;
   };
 
@@ -67,9 +65,7 @@ export default function useMovies() {
       try {
         setCurrentSearch(search);
         setIsLoading(true);
-        const movies = isFake
-          ? (moviesData as MoviesRawData)
-          : await fetchMoviesFromSource(search);
+        const movies = await fetchMoviesFromSource(search);
         const moviesSearched: MovieSearchData[] = movies.Search.map(
           (searchMovie: MovieSearchRawData) => handleParseMovie(searchMovie),
         );
@@ -95,5 +91,6 @@ export default function useMovies() {
     currentSearch,
     setCurrentSearch,
     handleLikeMovie,
+    fetchMoviesFromSource
   };
 }
