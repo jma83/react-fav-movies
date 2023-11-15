@@ -1,9 +1,9 @@
-import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import App from '../src/App';
 import { cleanup, render, RenderResult, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import moviesData from '../src/data/movies.json';
-import koData from '../src/data/ko.json';
+import moviesData from './data/movies.json';
+import koData from './data/ko.json';
 
 function createFetchMoviesResponseOk() {
   return Promise.resolve({
@@ -22,8 +22,6 @@ let listNodes;
 
 describe('App root component', () => {
   beforeEach(() => {
-    vi.resetAllMocks();
-    cleanup();
     renderResult = render(<App />);
     expect(renderResult.getByText('FavFilms')).toBeDefined();
     searchInput = renderResult.getByRole('textbox');
@@ -41,7 +39,7 @@ describe('App root component', () => {
     expect(listNodes.length).toBe(0);
   });
 
-  afterAll(() => {
+  afterEach(() => {
     vi.resetAllMocks();
     cleanup();
   })
