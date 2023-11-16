@@ -13,6 +13,10 @@ export default function useMovies() {
     return likedMovies.map(movie => movie.id);
   }, [likedMovies]);
 
+  const filteredLikedMovies = useMemo(() => {
+    return !currentSearch ? likedMovies.filter(movie => movie.title.includes(currentSearch)) : likedMovies;
+  }, [likedMovies]);
+
   const currentMovies = useMemo(() => {
     return movies.map(movie => ({
       ...movie,
@@ -26,7 +30,7 @@ export default function useMovies() {
     if (movie.isLiked) {
       newlikedMovies = likedMovies.filter(m => movie.id !== m.id);
     } else {
-      newlikedMovies = [...likedMovies, movie];
+      newlikedMovies = [...likedMovies, {...movie, isLiked: true}];
     }
     setLikedMovies(newlikedMovies);
   };
@@ -56,6 +60,10 @@ export default function useMovies() {
     }
     return movies;
   };
+
+  const handleUpdateCurrentSearch = (search: string) => {
+    setCurrentSearch(search);
+  }
 
   const handleGetMovies = useCallback(
     async (search: string) => {
@@ -89,8 +97,10 @@ export default function useMovies() {
     isLoading,
     setIsLoading,
     currentSearch,
+    filteredLikedMovies,
     setCurrentSearch,
     handleLikeMovie,
-    fetchMoviesFromSource
+    fetchMoviesFromSource,
+    handleUpdateCurrentSearch
   };
 }

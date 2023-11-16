@@ -1,30 +1,34 @@
 import styles from '../styles/AsideBar.module.css';
-import useMoviesForm from '../hooks/useMoviesForm.ts';
+import { AsideBarForm } from './aside-bar/AsideBarForm.tsx';
+import { useMemo, useState } from 'react';
 
 export const AsideBar = ({ searchMovies }: { searchMovies: Function }) => {
-  const { handleOnSubmit, handleInputDebounced, isFirstInput, error } =
-    useMoviesForm({
-      searchMovies,
-    });
+  const [isHiding, setIsHiding] = useState(null as boolean | null);
+
+
+  const asideContentClasses = useMemo(() => {
+    return isHiding === null
+      ? styles.fmAppMainAsideContent
+      : isHiding
+      ? `${styles.fmAppMainAsideContent} ${styles.fmAppMainAsideContentHide}`
+      : `${styles.fmAppMainAsideContent} ${styles.fmAppMainAsideContentShow}`;
+  }, [isHiding]);
+
+  const asideIcon = useMemo(() => {
+    return isHiding ? '>' : 'x';
+  }, [isHiding]);
 
   return (
     <aside className={styles.fmAppMainAside}>
-      <form onSubmit={handleOnSubmit} aria-label="Búsqueda de peliculas">
-        <label htmlFor="search">Buscar por título de pelicula</label>
-        <input
-          type="text"
-          name="search"
-          placeholder="El Padrino, el Club de la Lucha..."
-          className={styles.fmAppMainAsideInput}
-          onInput={handleInputDebounced}
-        />
-        <button type="submit">Buscar</button>
-      </form>
-      {error && isFirstInput ? (
-        <p className={styles.fmAppMainAsideError}>{error}</p>
-      ) : (
-        <></>
-      )}
+      <button
+        className={styles.fmAppMainAsideContentButton}
+        onClick={() => setIsHiding(!isHiding)}
+      >
+        {asideIcon}
+      </button>
+      <div className={asideContentClasses}>
+        <AsideBarForm searchMovies={searchMovies} />
+      </div>
     </aside>
   );
 };

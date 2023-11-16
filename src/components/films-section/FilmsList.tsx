@@ -20,7 +20,7 @@ export const FilmsList = ({
       ) : (
         <ul className={styles.fmListMovies}>
           {movies.map(movie => (
-            <FilmsListItem movie={movie} handleLikeMovie={handleLikeMovie} />
+            <FilmsListItem movie={movie} handleLikeMovie={handleLikeMovie} key={movie.id} />
           ))}
         </ul>
       )}

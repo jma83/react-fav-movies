@@ -1,26 +1,74 @@
 .fmAppMainAside {
-    padding: 1rem;
+    flex-direction: column;
     margin-top: 1rem;
-    box-shadow: 15px 0px 40px 0px rgba(0, 0, 0, 0.1);
     height: fit-content;
+    width: fit-content;
     position: sticky;
-    top: 0;
+    top: 1rem;
     z-index: 20;
     background-color: #202b38;
-}
-
-.fmAppMainAsideInput {
-    width: 90%;
+    box-shadow: 15px 0px 40px 0px rgba(0, 0, 0, 0.1);
 }
 
 
-.fmAppMainAsideError {
-    color: crimson;
+.fmAppMainAsideContent,
+.fmAppMainAsideContentShow {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+    max-width: 400px;
+    opacity: 100%;
+    left: 0;
+    display: block;
+
+    animation-duration: 0.25s;
+    animation-timing-function: ease-in-out;
+    transition: all;
 }
 
-@media (min-width: 768px) {
-    .fmAppMainAside {
-        top: 1rem;
-        height: 10rem;
+.fmAppMainAsideContentHide {
+    width: fit-content;
+    display: none;
+    position: absolute;
+    opacity: 0;
+    left: -100%;
+    animation-name: hideLeft;
+}
+
+.fmAppMainAsideContentShow {
+    animation-name: showRight;
+}
+
+.fmAppMainAsideContentButton {
+    padding: 0.5rem 0.75rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 30%;
+}
+
+@keyframes hideLeft {
+    from {
+        left: 0;
+        display: block;
+        opacity: 100%;
+    }
+    to {
+        left: -100%;
+        display: none;
+        opacity: 0;
+    }
+}
+
+@keyframes showRight {
+    from {
+        left: -100%;
+        display: none;
+        opacity: 0;
+    }
+    to {
+        left: 0;
+        display: block;
+        opacity: 100%;
     }
 }

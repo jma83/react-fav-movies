@@ -1,10 +1,12 @@
 .fmAppFilmsSection {
-    padding: 1rem;
+    width: 100%;
+    padding: 0;
 }
 
 @media (min-width: 768px) {
     .fmAppFilmsSection {
         white-space: nowrap;
         margin-right: 2rem;
+        padding: 1rem;
     }
 }

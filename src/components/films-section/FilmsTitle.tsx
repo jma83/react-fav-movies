@@ -12,7 +12,7 @@ export const FilmsTitle = ({
   ) : (
     <>
       <h2>¡Bienvenido a FavFilms!</h2>
-      <h3>Tus peliculas favoritas en un sitio web</h3>
+      <h3>Encuentra tus peliculas favoritas en una web</h3>
     </>
   );
 };
