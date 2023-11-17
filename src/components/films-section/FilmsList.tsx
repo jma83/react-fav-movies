@@ -18,9 +18,11 @@ export const FilmsList = ({
       {!isLoading && movies.length === 0 && currentSearch.length > 0 ? (
         <p>No hay resultados para los filtros actuales :(</p>
       ) : (
-        <ul className={styles.fmListMovies}>
+        <ul className={styles.fmListMovies} aria-label="films-list">
           {movies.map(movie => (
-            <FilmsListItem movie={movie} handleLikeMovie={handleLikeMovie} key={movie.id} />
+            <li key={movie.id} className={styles.fmListMoviesItem}>
+            <FilmsListItem movie={movie} handleLikeMovie={handleLikeMovie} />
+            </li>
           ))}
         </ul>
       )}

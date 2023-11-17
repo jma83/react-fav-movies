@@ -1,9 +1,10 @@
-import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import App from '../src/App';
 import { cleanup, render, RenderResult, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import moviesData from './data/movies.json';
 import koData from './data/ko.json';
+import { MemoryRouter } from 'react-router-dom';
 
 function createFetchMoviesResponseOk() {
   return Promise.resolve({
@@ -19,21 +20,24 @@ let renderResult: RenderResult;
 let searchInput: HTMLInputElement;
 let button: HTMLButtonElement;
 let listNodes;
+const route = "/";
 
-describe('App root component', () => {
-  beforeEach(() => {
-    renderResult = render(<App />);
-    expect(renderResult.getByText('FavFilms')).toBeDefined();
+describe('App root component - route for component Home', () => {
+  beforeEach(async() => {
+    renderResult = render(
+      <MemoryRouter initialEntries={[route]}>
+        <App />
+      </MemoryRouter>,
+    );
+    expect(renderResult.getByText('FavFilms!')).toBeDefined();
     searchInput = renderResult.getByRole('textbox');
     expect(searchInput).toBeDefined();
     const form = renderResult.getByRole('form');
     expect(form).toBeDefined();
-    button = screen.getByRole('button');
+    button = screen.getByText('Buscar');
     expect(button).toBeDefined();
-    const list: HTMLUListElement = renderResult.getByRole('list');
+    const list: HTMLUListElement = await renderResult.findByLabelText('films-list');
     expect(list).toBeDefined();
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     listNodes = list.childNodes;
     expect(listNodes.length).toBe(0);
@@ -42,12 +46,11 @@ describe('App root component', () => {
   afterEach(() => {
     vi.resetAllMocks();
     cleanup();
-  })
+  });
 
   test('Should search films', async () => {
     const user = userEvent.setup();
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     vi.spyOn(window, 'fetch').mockImplementationOnce(
       createFetchMoviesResponseOk,
@@ -62,7 +65,6 @@ describe('App root component', () => {
   test('Should get error when searching films', async () => {
     const user = userEvent.setup();
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     vi.spyOn(window, 'fetch').mockImplementationOnce(
       createFetchMoviesResponseKo,

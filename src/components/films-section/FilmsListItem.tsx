@@ -6,14 +6,12 @@ import { MovieSearchData } from '../../types';
 export const FilmsListItem = ({
   movie,
   handleLikeMovie,
-  key
 }: {
   movie: MovieSearchData;
   handleLikeMovie: Function;
-  key: string;
 }) => {
   return (
-    <li key={key} className={styles.fmListMoviesItem}>
+    <>
       <div className={styles.fmListMoviesItemImageContainer}>
         {movie.isLiked ? (
           <div
@@ -26,7 +24,7 @@ export const FilmsListItem = ({
               fontSize: '0.825rem',
             }}
           >
-            Liked
+            Favorita
           </div>
         ) : (
           <></>
@@ -57,6 +55,6 @@ export const FilmsListItem = ({
         <b className={styles.fmListMoviesItemTitle}>{movie.title}</b>
         <small>{movie.year}</small>
       </p>
-    </li>
+    </>
   );
 };

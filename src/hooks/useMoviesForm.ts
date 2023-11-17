@@ -1,13 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 export default function useMoviesForm({
   searchMovies,
+  currentSearch,
 }: {
   searchMovies: Function;
+  currentSearch: string;
 }) {
   const [error, setError] = useState('');
+  const [input, setInput] = useState('');
   const isFirstInput = useRef(true);
+
+  useEffect(() => {
+    console.log("currentSearch");
+    setInput(currentSearch);
+  }, []);
+
+  const setSearchValue = (value: string) => {
+    setInput(value);
+    searchMovies(value);
+  };
 
   const isSearchValueValid = (inputValue: string) => {
     if (inputValue.length <= 0) {
@@ -32,7 +45,6 @@ export default function useMoviesForm({
   };
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('handle submit');
     e.preventDefault();
     const target = e.currentTarget;
 
@@ -48,31 +60,48 @@ export default function useMoviesForm({
       setError('Por favor, indica un texto válido para la búsqueda');
       return;
     }
-
     if (!isSearchValueValid(searchField)) {
       return;
     }
-
-    searchMovies(searchField);
+    setSearchValue(searchField);
   };
 
-  const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleInput = (inputValue: string) => {
     setError('');
     isFirstInput.current = false;
-    const input = event.target;
+    setError('');
+    isFirstInput.current = false;
+    if (!isSearchValueValid(inputValue)) {
+      return;
+    }
+    setSearchValue(inputValue);
+  };
+
+  const handleResetSearch = () => {
+    setError('');
+    isFirstInput.current = true;
+    setSearchValue('');
+  };
+
+  const handleInputDebounced = ($event: React.FormEvent<HTMLInputElement>) => {
+    const input = $event.target;
     if (input == null || !(input instanceof HTMLInputElement)) {
       setError('Por favor, indica un texto válido para la búsqueda');
       return;
     }
     const inputValue = input.value;
-
-    if (!isSearchValueValid(inputValue)) {
-      return;
-    }
-    searchMovies(inputValue);
+    setInput(inputValue);
+    handleDebounced(inputValue);
   };
 
-  const handleInputDebounced = useDebouncedCallback(handleInput, 400);
+  const handleDebounced = useDebouncedCallback(handleInput, 400);
 
-  return { handleOnSubmit, handleInputDebounced, error, isFirstInput };
+  return {
+    handleOnSubmit,
+    handleResetSearch,
+    handleInputDebounced,
+    error,
+    isFirstInput,
+    input,
+  };
 }

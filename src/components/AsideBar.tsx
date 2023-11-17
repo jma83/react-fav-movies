@@ -2,7 +2,7 @@ import styles from '../styles/AsideBar.module.css';
 import { AsideBarForm } from './aside-bar/AsideBarForm.tsx';
 import { useMemo, useState } from 'react';
 
-export const AsideBar = ({ searchMovies }: { searchMovies: Function }) => {
+export const AsideBar = ({ searchMovies, currentSearch }: { searchMovies: Function, currentSearch: string }) => {
   const [isHiding, setIsHiding] = useState(null as boolean | null);
 
 
@@ -27,7 +27,7 @@ export const AsideBar = ({ searchMovies }: { searchMovies: Function }) => {
         {asideIcon}
       </button>
       <div className={asideContentClasses}>
-        <AsideBarForm searchMovies={searchMovies} />
+        <AsideBarForm searchMovies={searchMovies} currentSearch={currentSearch} />
       </div>
     </aside>
   );

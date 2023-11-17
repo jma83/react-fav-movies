@@ -2,24 +2,28 @@ import style from '../styles/Home.module.css';
 import { AsideBar } from '../components/AsideBar.tsx';
 import { FilmsSection } from '../components/FilmsSection.tsx';
 
+// @ts-ignore
 export const LikedMovies = ({ moviesHook }) => {
+  const { likedMoviesHook } = moviesHook;
   const {
-    filteredLikedMovies,
     handleUpdateCurrentSearch,
-    isLoading,
-    currentSearch,
+    filteredLikedMovies,
+    isLoadingLiked,
+    currentSearchLiked,
     handleLikeMovie,
-  } = moviesHook;
-
-  console.log('filteredLikedMovies', filteredLikedMovies);
+  } = likedMoviesHook;
   return (
     <main className={style.fmAppMain}>
-      <AsideBar searchMovies={handleUpdateCurrentSearch} />
+      <AsideBar
+        searchMovies={handleUpdateCurrentSearch}
+        currentSearch={currentSearchLiked}
+      />
       <FilmsSection
         movies={filteredLikedMovies}
-        isLoading={isLoading}
-        currentSearch={currentSearch}
+        isLoading={isLoadingLiked}
+        currentSearch={currentSearchLiked}
         handleLikeMovie={handleLikeMovie}
+        isLikedFilms={true}
       />
     </main>
   );

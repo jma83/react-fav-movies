@@ -1,11 +1,24 @@
 import styles from '../../styles/AsideBarForm.module.css';
 import useMoviesForm from '../../hooks/useMoviesForm.ts';
 
-export const AsideBarForm = ({ searchMovies }: { searchMovies: Function }) => {
-  const { handleOnSubmit, handleInputDebounced, isFirstInput, error } =
-    useMoviesForm({
-      searchMovies,
-    });
+export const AsideBarForm = ({
+  searchMovies,
+  currentSearch,
+}: {
+  searchMovies: Function;
+  currentSearch: string;
+}) => {
+  const {
+    handleOnSubmit,
+    handleInputDebounced,
+    handleResetSearch,
+    isFirstInput,
+    input,
+    error,
+  } = useMoviesForm({
+    searchMovies,
+    currentSearch,
+  });
 
   return (
     <form onSubmit={handleOnSubmit} aria-label="Búsqueda de peliculas">
@@ -15,9 +28,13 @@ export const AsideBarForm = ({ searchMovies }: { searchMovies: Function }) => {
         name="search"
         placeholder="Star Wars, Avengers..."
         className={styles.fmAppMainAsideInput}
-        onInput={handleInputDebounced}
+        value={input}
+        onChange={handleInputDebounced}
       />
       <button type="submit">Buscar</button>
+      <button type="button" onClick={handleResetSearch}>
+        Limpiar filtros
+      </button>
 
       {error && isFirstInput ? (
         <p className={styles.fmAppMainAsideError}>{error}</p>

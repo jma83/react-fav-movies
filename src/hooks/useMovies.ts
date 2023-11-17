@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { MovieSearchData, MovieSearchRawData, MoviesRawData } from '../types';
+import useLikedMovies from './useLikedMovies.ts';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -7,15 +8,8 @@ export default function useMovies() {
   const [movies, setMovies] = useState([] as MovieSearchData[]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentSearch, setCurrentSearch] = useState('');
-  const [likedMovies, setLikedMovies] = useState([] as MovieSearchData[]);
-
-  const likedMoviesIds = useMemo(() => {
-    return likedMovies.map(movie => movie.id);
-  }, [likedMovies]);
-
-  const filteredLikedMovies = useMemo(() => {
-    return !currentSearch ? likedMovies.filter(movie => movie.title.includes(currentSearch)) : likedMovies;
-  }, [likedMovies]);
+  const likedMoviesHook = useLikedMovies();
+  const { likedMoviesIds } = likedMoviesHook;
 
   const currentMovies = useMemo(() => {
     return movies.map(movie => ({
@@ -23,17 +17,6 @@ export default function useMovies() {
       isLiked: likedMoviesIds.includes(movie.id),
     }));
   }, [likedMoviesIds, movies]);
-
-  const handleLikeMovie = (movie: MovieSearchData) => {
-    let newlikedMovies;
-
-    if (movie.isLiked) {
-      newlikedMovies = likedMovies.filter(m => movie.id !== m.id);
-    } else {
-      newlikedMovies = [...likedMovies, {...movie, isLiked: true}];
-    }
-    setLikedMovies(newlikedMovies);
-  };
 
   const handleParseMovie = (
     movieSearch: MovieSearchRawData,
@@ -61,13 +44,9 @@ export default function useMovies() {
     return movies;
   };
 
-  const handleUpdateCurrentSearch = (search: string) => {
-    setCurrentSearch(search);
-  }
-
   const handleGetMovies = useCallback(
     async (search: string) => {
-      if (currentSearch === search) {
+      if (currentSearch === search && search.length < 3) {
         return;
       }
       try {
@@ -97,10 +76,8 @@ export default function useMovies() {
     isLoading,
     setIsLoading,
     currentSearch,
-    filteredLikedMovies,
     setCurrentSearch,
-    handleLikeMovie,
     fetchMoviesFromSource,
-    handleUpdateCurrentSearch
+    likedMoviesHook
   };
 }
