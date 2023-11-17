@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home moviesHook={moviesHook} />} />
         <Route path="/liked" element={<LikedMovies moviesHook={moviesHook} />} />
+        <Route path="*" element={<div style={{width: "100%", padding: "1rem"}}><h1 style={{textAlign: "center"}}>404 - Not Found</h1></div>} />
       </Routes>
     </>
   );
