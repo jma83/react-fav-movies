@@ -10,7 +10,7 @@ export const FilmsTitle = ({
   isLikedTitle: boolean;
 }) => {
   const title = useMemo(() => {
-    return !isLikedTitle ? '¡Bienvenido a FavFilms!' : currentSearch?.length > 0 ? `No hay resultados para "${currentSearch}" en tus me gusta`: "Aún no hay peliculas en tus favoritas...";
+    return !isLikedTitle ? '🔍 ¡Bienvenido a FavFilms!' : currentSearch?.length > 0 ? `⭐ No hay resultados para "${currentSearch}" en tus me gusta`: "⭐ Aún no hay peliculas en tus favoritas...";
   }, [isLikedTitle, currentSearch]);
 
   const subtitle = useMemo(() => {
@@ -18,7 +18,7 @@ export const FilmsTitle = ({
   }, [isLikedTitle]);
 
   const titleSearch = useMemo(() => {
-    return !isLikedTitle ? `Resultados de la búsqueda: "${currentSearch}"` : currentSearch?.length > 0 ? `Resultados para "${currentSearch}" en tus favoritas:`: "Tus favoritas:";
+    return !isLikedTitle ? `🔍 Resultados de la búsqueda: "${currentSearch}"` : currentSearch?.length > 0 ? `⭐ Resultados para "${currentSearch}" en tus favoritas:`: "⭐ Tus favoritas:";
   }, [isLikedTitle, currentSearch]);
 
   return currentSearch != null && moviesSize > 0 ? (
