@@ -63,6 +63,9 @@ export default function useMoviesForm({
     if (!isSearchValueValid(searchField)) {
       return;
     }
+    if (searchField === currentSearch) {
+      return;
+    }
     setSearchValue(searchField);
   };
 

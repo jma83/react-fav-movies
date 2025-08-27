@@ -1,5 +1,17 @@
 
 
+.fmAppMainAsideForm {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fmAppMainAsideFormButtons {
+  display: flex;
+  gap: 4px;
+}
+
 .fmAppMainAsideError {
     color: crimson;
 }

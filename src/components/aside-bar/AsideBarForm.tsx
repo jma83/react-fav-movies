@@ -21,7 +21,7 @@ export const AsideBarForm = ({
   });
 
   return (
-    <form onSubmit={handleOnSubmit} aria-label="Búsqueda de peliculas">
+    <form className={styles.fmAppMainAsideForm} onSubmit={handleOnSubmit} aria-label="Búsqueda de peliculas">
       <label htmlFor="search">Buscar por título de pelicula:</label>
       <input
         type="text"
@@ -31,10 +31,12 @@ export const AsideBarForm = ({
         value={input}
         onChange={handleInputDebounced}
       />
+    <div className={styles.fmAppMainAsideFormButtons}>
       <button type="submit">Buscar</button>
       <button type="button" onClick={handleResetSearch}>
         Limpiar filtros
       </button>
+    </div>
 
       {error && isFirstInput ? (
         <p className={styles.fmAppMainAsideError}>{error}</p>

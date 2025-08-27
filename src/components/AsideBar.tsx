@@ -27,7 +27,8 @@ export const AsideBar = ({ searchMovies, currentSearch }: { searchMovies: Functi
         {asideIcon}
       </button>
       <div className={asideContentClasses}>
-        <AsideBarForm searchMovies={searchMovies} currentSearch={currentSearch} />
+        <AsideBarForm         className={styles.fmAppMainAsideContentForm}
+ searchMovies={searchMovies} currentSearch={currentSearch} />
       </div>
     </aside>
   );
